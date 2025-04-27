@@ -1,4 +1,4 @@
-import { Component, computed, Input, input } from '@angular/core';
+import { Component, computed, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -12,10 +12,14 @@ export class UserComponent {
   @Input({required: true}) avatar!: string;
   @Input({required: true}) name!: string;
   @Input({required: true}) id!: string;
+  // EventEmitter; object that will allow is to emit custom values through the output decorator.
+  @Output() select = new EventEmitter();
 
   get imagePath() {
     return 'assets/users/' + this.avatar
   }
-
-  onSelectUser() {}
+  // we use the select property to emit a new value with event emitter
+  onSelectUser() {
+    this.select.emit(this.id);
+  }
 }
